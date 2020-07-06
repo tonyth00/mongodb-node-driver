@@ -6,6 +6,10 @@ import Products from '../../components/Products/Products';
 class ProductsPage extends Component {
   state = { isLoading: true, products: [] };
   componentDidMount() {
+    this.fetchData();
+  }
+
+  fetchData = () => {
     axios
       .get('http://localhost:3100/products')
       .then(productsResponse => {
@@ -23,6 +27,7 @@ class ProductsPage extends Component {
       .delete('http://localhost:3100/products/' + productId)
       .then(result => {
         console.log(result);
+        this.fetchData();
       })
       .catch(err => {
         this.props.onError(
